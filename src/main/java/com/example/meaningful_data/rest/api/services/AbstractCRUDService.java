@@ -25,28 +25,23 @@ public abstract class AbstractCRUDService
 
     @Override
     public E getById(Long id) {
-
         E result = repository.findById(id).orElse(null);
 
         if(result != null)
             log.info("entity: " + clazz + " successfully found by id: " + id);
 
         return result;
-
     }
 
     @Override
     public E save(E entity) {
-
         E result = repository.save(entity);
         log.info("entity: " + clazz + " successfully saved");
         return result;
-
     }
 
     @Override
     public List<E> getAll() {
-
         List<E> result = repository.findAll();
 
         if(!result.isEmpty())
@@ -57,9 +52,7 @@ public abstract class AbstractCRUDService
 
     @Override
     public void delete(Long id) {
-
         repository.deleteById(id);
         log.info("entity: " + clazz + " successfully deleted by id: " + id);
-
     }
 }

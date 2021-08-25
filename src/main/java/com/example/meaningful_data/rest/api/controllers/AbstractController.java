@@ -4,10 +4,13 @@ import com.example.meaningful_data.rest.api.models.AbstractEntity;
 import com.example.meaningful_data.rest.api.services.CRUDService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class AbstractController<E extends AbstractEntity, S extends CRUDService<
      * @param id
      * @return
      */
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<E> getById(@PathVariable("id") Long id) {
 
         if(id == null)
@@ -50,6 +54,7 @@ public class AbstractController<E extends AbstractEntity, S extends CRUDService<
      * @param entity
      * @return
      */
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<E> save(@RequestBody @Validated E entity) {
 
         HttpHeaders headers = new HttpHeaders();
@@ -68,6 +73,7 @@ public class AbstractController<E extends AbstractEntity, S extends CRUDService<
      * @param id
      * @return
      */
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<E> delete(@PathVariable("id") Long id) {
 
         E entity = service.getById(id);
@@ -84,6 +90,7 @@ public class AbstractController<E extends AbstractEntity, S extends CRUDService<
      *
      * @return
      */
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<E>> getAll() {
 
         List<E> entities = this.service.getAll();
